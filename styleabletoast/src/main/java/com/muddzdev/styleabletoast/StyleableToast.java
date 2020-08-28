@@ -59,6 +59,7 @@ public class StyleableToast extends LinearLayout {
     private TypedArray typedArray;
     private TextView textView;
     private int gravity;
+    private int offsetY = 0;
     private Toast toast;
     private LinearLayout rootLayout;
 
@@ -91,6 +92,7 @@ public class StyleableToast extends LinearLayout {
         this.textBold = builder.textBold;
         this.font = builder.font;
         this.text = builder.text;
+        this.offsetY = builder.offsetY;
         this.gravity = builder.gravity;
         this.length = builder.length;
     }
@@ -116,7 +118,7 @@ public class StyleableToast extends LinearLayout {
     private void createAndShowToast() {
         inflateToastLayout();
         toast = new Toast(getContext());
-        toast.setGravity(gravity, 0, gravity == Gravity.CENTER ? 0 : toast.getYOffset());
+        toast.setGravity(gravity, 0, gravity == Gravity.CENTER ? 0 : (offsetY > 0 ? offsetY : toast.getYOffset()));
         toast.setDuration(length == Toast.LENGTH_LONG ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
         toast.setView(rootLayout);
         toast.show();
@@ -284,6 +286,7 @@ public class StyleableToast extends LinearLayout {
         private boolean textBold;
         private String text;
         private int gravity = Gravity.BOTTOM;
+        private int offsetY;
         private final Context context;
 
         public Builder(@NonNull Context context) {
@@ -360,6 +363,11 @@ public class StyleableToast extends LinearLayout {
          */
         public Builder gravity(int gravity) {
             this.gravity = gravity;
+            return this;
+        }
+
+        public Builder offsetY(int offsetY) {
+            this.offsetY = offsetY;
             return this;
         }
 

@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 .solidBackground()
                 .textColor(Color.RED)
                 .textBold()
+                .offsetY(1)
                 .font(R.font.dosis)
                 .iconStart(getIcon())
                 .iconEnd(getIcon())
